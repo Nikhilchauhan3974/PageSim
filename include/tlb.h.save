@@ -1,0 +1,102 @@
+#ifndef TLB_H
+#define TLB_H
+
+#define MAX_TLB_ENTRIES 4
+
+/*
+ * One entry in the Translation Lookaside Buffer.
+ *
+ * The TLB stores a mapping between:
+ *
+ * Virtual Page -> Physical Frame
+ */
+typedef struct {
+    int page_number;
+    int frame_number;
+    int valid;
+} TLBEntry;
+
+/*
+ * Translation Lookaside Buffer.
+ */
+typedef struct TLB {
+    TLBEntry entries[MAX_TLB_ENTRIES];
+
+    /*
+     * Number of entries in the TLB.
+     */
+    int entry_count;
+
+    /*
+     * Statistics.
+     */
+    int accesses;
+    int hits;
+    int misses;
+
+    /*
+     * Replacement pointer.
+     *
+     * For now we use a simple FIFO-style
+     * replacement inside the TLB.
+     */
+    int next_victim;
+
+} TLB;
+
+/*
+ * Initialize the TLB.
+ */
+void tlb_init(
+    TLB *tlb
+);
+
+/*
+ * Search for a page in the TLB.
+ *
+ * Returns:
+ *     physical frame number on HIT
+ *     -1 on MISS
+ */
+int tlb_lookup(
+    TLB *tlb,
+    int page_number
+);
+
+/*
+ * Insert a page-to-frame mapping.
+ */
+void tlb_insert(
+   ++++++++++++++++++++++ TLB *tlb,
+    int page_number,
+    int frame_number
+);
+
+/*
+ * Invalidate a page from the TLB.
+ *
+ * This is required when a page is evicted
+ * from physical memory.
+ */
+void tlb_invalidate(
+    TLB *tlb,
+    int page_number
+);
+
+/*
+ * Print TLB contents.
+ */
+void tlb_print(
+    const TLB *tlb
+);
+
+/*
+ * Print TLB statistics.
+ */
+void tlb_print_stats(
+    const TLB *tlb
+);
+
+#endif
+
++++

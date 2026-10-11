@@ -1,0 +1,27 @@
+# Compiled PageSim programs
+/pagesim
+/pageshell
+/syscall_demo
+/process_demo
+/scheduler_demo
+/ipc_demo
+/signal_demo
+/fifo_demo
+/job_control_demo
+/address_translation_demo
+/memory_layout_demo
+/cow_demo
+/allocation_demo
+/mmap_demo
+/memory_protection_demo
+/page_fault_analysis_demo
+/page_table_demo
+/filesystem_demo
+/thread_sync_demo
+
+# Temporary and generated files
+*.o
+*.out
+core
+core.*
+*.log
